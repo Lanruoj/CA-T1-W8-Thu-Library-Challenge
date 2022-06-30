@@ -26,7 +26,7 @@ def _loan_book(catalogue, author, title):
 
 def _return_book(catalogue, author, title):
         # if author AND title already in catalogue
-        if _stock_check(catalogue, author, title):
+        if _author_check(catalogue, author, title) and (_title_check(catalogue, author, title)):
             catalogue[author].append(title)
             print("BOTH EXISTING, ADDED TITLE TO AUTHOR")
         # if only author already in catalogue
@@ -34,13 +34,12 @@ def _return_book(catalogue, author, title):
             print("EXISTING AUTHOR, ADDED TITLE TO AUTHOR")
             catalogue[author].append(title)
         # if only title already in catalogue
-        elif author not in catalogue: 
+        elif author not in catalogue.keys(): 
             print("EXISTING TITLE, ADDED AUTHOR AND TITLE")
             catalogue[author] = []
             catalogue[author].append(title)
 
         print(catalogue)  
-        # print(f"'{title}' by '{author}' returned\nCatalogue:\n{catalogue}")
 
 #----PROGRAM----#
 
@@ -71,16 +70,16 @@ def main(task, author, title):
 
 #---- WORKING ----#
 
-# # AUTHOR + TITLE EXISTING
+# # AUTHOR + TITLE EXISTING - ADD TITLE TO AUTHOR
 # main("return", "Madeleine Miller", "Tehanu")
-# # AUTHOR EXISTING
+
+# # AUTHOR EXISTING - ADD TITLE TO AUTHOR
 # main("return", "Madeleine Miller", "Tehanu111")
 
-#---- NOT WORKING----#
+# # TITLE EXISTING - ADD BOTH AUTHOR AND TITLE
+# main("return", "Madeleine Miller111", "Tehanu")
 
-# TITLE EXISTING
-main("return", "Madeleine Miller111", "Tehanu")
-# NONE EXISTING
+# # NONE EXISTING - ADD BOTH AUTHOR AND TITLE
 # main("return", "Madeleine Miller111", "Tehanu111")
 
 
