@@ -1,10 +1,23 @@
 #----FUNCTIONS----#
 
 def _author_check(catalogue, author, title):
-    if (author in catalogue) and (title in catalogue[author]):
+    if author in catalogue:
         return True
     else:
         return False
+
+def _title_check(catalogue, author, title):
+    if title in catalogue[author]:
+        return True
+    else:
+        return False
+
+def _stock_check(catalogue, author, title):
+    if (title in catalogue[author]) and (author in catalogue):
+        return True
+    else:
+        return False
+        
 
 def _loan_book(catalogue, author, title):
     if _stock_check(catalogue, author, title):
@@ -12,16 +25,23 @@ def _loan_book(catalogue, author, title):
         print(f"'{title}' by '{author}' borrowed\nCatalogue:\n{catalogue}")
 
 def _return_book(catalogue, author, title):
+        # if author AND title already in catalogue
         if _stock_check(catalogue, author, title):
             catalogue[author].append(title)
-            print("author already in cat")
-            print(catalogue)
-        #----IF AUTHOR NOT ALREADY IN CATALOGUE----#
-        else:
-            catalogue[author] = []
-            catalogue[author].append(title) 
-            print(f"'{title}' by '{author}' returned\nCatalogue:\n{catalogue}")
-            print("adding new title")
+            print("BOTH EXISTING")
+        # if only author already in catalogue
+        if _author_check(catalogue, author, title) and not (_title_check(catalogue, author, title)):
+            print("EXISTING AUTHOR")
+            catalogue[author].append(title)
+        # if only title already in catalogue
+        # if _title_check(catalogue, author, title): 
+        #     print("EXISTING TITLE")
+        #     catalogue[author] = []
+        #     catalogue[author].append(title)
+        # else:
+
+        print(catalogue)  
+        # print(f"'{title}' by '{author}' returned\nCatalogue:\n{catalogue}")
 
 #----PROGRAM----#
 
@@ -49,6 +69,19 @@ def main(task, author, title):
     elif task=="return":
         _return_book(catalogue, author, title)
 
-main("return", "Madeleine Millers", "Tehanul")
+
+#---- WORKING ----#
+
+# # AUTHOR + TITLE EXISTING
+# main("return", "Madeleine Miller", "Tehanu")
+# AUTHOR EXISTING
+# main("return", "Madeleine Miller", "Tehanu111")
+
+#---- NOT WORKING----#
+
+# # TITLE EXISTING
+# main("return", "Madeleine Miller111", "Tehanu")
+# NONE EXISTING
+main("return", "Madeleine Miller111", "Tehanu111")
 
 
