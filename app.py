@@ -28,17 +28,16 @@ def _return_book(catalogue, author, title):
         # if author AND title already in catalogue
         if _stock_check(catalogue, author, title):
             catalogue[author].append(title)
-            print("BOTH EXISTING")
+            print("BOTH EXISTING, ADDED TITLE TO AUTHOR")
         # if only author already in catalogue
-        if _author_check(catalogue, author, title) and not (_title_check(catalogue, author, title)):
-            print("EXISTING AUTHOR")
+        elif _author_check(catalogue, author, title) and not (_title_check(catalogue, author, title)):
+            print("EXISTING AUTHOR, ADDED TITLE TO AUTHOR")
             catalogue[author].append(title)
         # if only title already in catalogue
-        # if _title_check(catalogue, author, title): 
-        #     print("EXISTING TITLE")
-        #     catalogue[author] = []
-        #     catalogue[author].append(title)
-        # else:
+        elif author not in catalogue: 
+            print("EXISTING TITLE, ADDED AUTHOR AND TITLE")
+            catalogue[author] = []
+            catalogue[author].append(title)
 
         print(catalogue)  
         # print(f"'{title}' by '{author}' returned\nCatalogue:\n{catalogue}")
@@ -74,14 +73,14 @@ def main(task, author, title):
 
 # # AUTHOR + TITLE EXISTING
 # main("return", "Madeleine Miller", "Tehanu")
-# AUTHOR EXISTING
+# # AUTHOR EXISTING
 # main("return", "Madeleine Miller", "Tehanu111")
 
 #---- NOT WORKING----#
 
-# # TITLE EXISTING
-# main("return", "Madeleine Miller111", "Tehanu")
+# TITLE EXISTING
+main("return", "Madeleine Miller111", "Tehanu")
 # NONE EXISTING
-main("return", "Madeleine Miller111", "Tehanu111")
+# main("return", "Madeleine Miller111", "Tehanu111")
 
 
